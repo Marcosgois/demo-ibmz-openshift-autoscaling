@@ -1,4 +1,4 @@
-# OpenShift Auto-Scaling Demo on IBM Z (s390x) 🚀
+# OpenShift Auto-Scaling Demo on IBM Z (s390x) Mainframe || LinuxONE
 
 Este repositório contém uma Prova de Conceito (PoC) prática demonstrando o **Horizontal Pod Autoscaler (HPA)** do Red Hat OpenShift rodando nativamente na arquitetura **IBM Z e LinuxONE (s390x)**.
 
@@ -19,7 +19,7 @@ O objetivo deste laboratório é ilustrar a elasticidade da plataforma. Uma apli
 
 ---
 
-## 🚀 Como Executar o Laboratório
+## Como Executar o Laboratório
 
 ### Pré-requisitos
 1. Acesso a um cluster OpenShift (preferencialmente rodando em nós s390x para o contexto completo da demo).
