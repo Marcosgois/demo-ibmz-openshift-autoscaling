@@ -4,8 +4,8 @@ import { sleep } from 'k6';
 export const options = {
   stages: [
     { duration: '30s', target: 10 },  // Ramp-up leve: sobe para 10 usuários virtuais
-    { duration: '1m', target: 50 },   // Spike: sobe agressivamente para 50 usuários
-    { duration: '2m', target: 50 },   // Mantém o estresse para dar tempo do HPA agir e os pods subirem
+    { duration: '30s', target: 50 },   // Spike: sobe agressivamente para 50 usuários
+    { duration: '30s', target: 50 },   // Mantém o estresse para dar tempo do HPA agir e os pods subirem
     { duration: '30s', target: 0 },   // Ramp-down: zera os usuários
   ],
 };
