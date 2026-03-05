@@ -16,6 +16,20 @@ def load():
         x += math.sqrt(x)
     return "Carga processada com sucesso!\n"
 
+@app.route('/memory-load')
+def memory_load():
+    # Aloca aproximadamente 50MB de memória por requisição e guarda na lista global
+    global memory_hog
+    memory_hog.append(' ' * (50 * 1024 * 1024)) 
+    return f"Memória alocada! O pod está segurando {len(memory_hog)} bloco(s) de 50MB.\n"
+
+@app.route('/memory-clear')
+def memory_clear():
+    # Libera a memória alocada
+    global memory_hog
+    memory_hog = []
+    return "Memória liberada com sucesso!\n"
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))
     app.run(host='0.0.0.0', port=port)
