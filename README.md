@@ -27,25 +27,38 @@ O objetivo deste laboratório é ilustrar a elasticidade da plataforma. Uma apli
 3. k6 instalado na sua máquina local.
 
 ### Passo 1: Clone o repositório
-git clone https://github.com/SEU_USUARIO/openshift-hpa-ibmz.git
-cd openshift-hpa-ibmz
+```bash
+git clone https://github.com/SEU_USUARIO/demo-ibmz-openshift-autoscaling.git
+```
+
+```
+cd demo-ibmz-openshift-autoscaling
+```
 
 ### Passo 2: Build da Imagem (Direct to Cluster)
 Para evitar a necessidade de um registry externo ou emuladores multi-arch na máquina local, faremos um **Binary Build** direto no cluster OpenShift.
 
 Crie o BuildConfig:
+```
 oc new-build --name=demo-autoscale --binary --strategy=docker
+```
 
 Inicie o build enviando os arquivos locais:
+```
 oc start-build demo-autoscale --from-dir=. --follow
+```
 *(Aguarde o status de sucesso do build. A imagem estará disponível no ImageStream `demo-autoscale:latest`)*.
 
 ### Passo 3: Deploy da Infraestrutura
 **Atenção:** Antes de aplicar, edite o arquivo `infra.yaml`. Na linha `image:` do Deployment, certifique-se de que o caminho aponta para o registry interno do seu projeto:
-`image-registry.openshift-image-registry.svc:5000/NOME_DO_SEU_PROJETO/demo-autoscale:latest`
+```
+image-registry.openshift-image-registry.svc:5000/NOME_DO_SEU_PROJETO/demo-autoscale:latest
+```
 
 Aplique os recursos no cluster:
+```
 oc apply -f infra.yaml
+```
 
 Obtenha a URL da aplicação gerada pela Route e atualize a variável `url` dentro do arquivo `loadtest.js`.
 
@@ -55,13 +68,19 @@ Obtenha a URL da aplicação gerada pela Route e atualize a variável `url` dent
 Para o melhor efeito visual durante uma apresentação, abra 3 terminais lado a lado na sua máquina:
 
 **Terminal 1 (Monitorando os Pods):**
+```
 watch -n 1 oc get pods -l app=demo-autoscale
+```
 
 **Terminal 2 (Monitorando o HPA):**
+```
 watch -n 1 oc get hpa demo-hpa
+``` 
 
 **Terminal 3 (Execução do Teste de Carga):**
+```
 k6 run loadtest.js
+```
 
 ### O que você vai observar:
 1. O `k6` começará a injetar carga na rota `/load`.
